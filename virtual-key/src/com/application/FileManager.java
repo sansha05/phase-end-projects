@@ -1,6 +1,10 @@
 package com.application;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +17,11 @@ public class FileManager {
 	public FileManager(String path) {
 		// TODO Auto-generated constructor stub
 		this.file = new File(path);
-		this.file.mkdir();
+		if(this.file.mkdir()) {
+			System.out.println("folder created!");
+		} else {
+			System.out.println("folder already exist!");
+		}
 		
 		
 	}
@@ -46,6 +54,16 @@ public class FileManager {
 		try {
 			if(fl.createNewFile()) {
 				System.out.println("\nfile created!\n");
+				System.out.println("write content to the file: ");
+				
+				//taking input and adding to the file
+				Scanner scan = new Scanner(System.in);
+				String content = sc.nextLine();
+				FileWriter wrt = new FileWriter(fl);
+				wrt.write(content);
+				wrt.close();
+				
+				
 			} else {
 				System.out.println("\nthere is already a file with same name\n");
 			}
@@ -72,14 +90,29 @@ public class FileManager {
 	}
 	
 	// method to view file
-	public void searchFile() {
+	public void searchFile() throws IOException {
 		File fl;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter file to search: ");
 		String fileName = sc.nextLine();
 		fl = new File(file.getPath() + "/" + fileName);
+		// checking file exist or not
 		if(fl.exists()) {
-			System.out.println("\n" + fl.getName()+" is present!\n");
+			System.out.println("\n" + fl.getName()+" is present and its content is:\n");
+			
+			// reding file
+			try {
+				Scanner re = new Scanner(fl);
+				while(re.hasNextLine()) {
+					System.out.println(re.nextLine());
+				}
+				System.out.println();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				System.out.println("Exception occur");
+				e.printStackTrace();
+			}
+			
 		} else {
 			System.out.println("\nfile not found!\n");
 		}

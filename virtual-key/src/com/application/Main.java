@@ -1,11 +1,12 @@
 package com.application;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String []args) {
-		FileManager flmanage = new FileManager("/home/sandeepsharma1m/directory");
+		
 		
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 		System.out.println(" File Manager Application");
@@ -14,11 +15,17 @@ public class Main {
 		
 		System.out.println("*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*");
 		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter the name of folder to create: ");
+		String folderName = sc.nextLine();
+		FileManager flmanage = new FileManager("/home/sandeepsharma1m/" + folderName);
+		
 
 //		flmanage.listFiles();
 //		flmanage.searchFile();
 		
-		Scanner sc = new Scanner(System.in);
+		
 		int option;
 		int subOption;
 		
@@ -45,7 +52,12 @@ public class Main {
 						flmanage.deleteFile();
 						break;
 					case 3:
-						flmanage.searchFile();
+						try {
+							flmanage.searchFile();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						break;
 					case 4:
 						break;
