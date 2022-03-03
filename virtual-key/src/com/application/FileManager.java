@@ -18,28 +18,18 @@ public class FileManager {
 		
 	}
 	
-	String []mainOps = {
-			"1. List files in ascending order",
-			"2. To perform file operation",
-			"3. end program",
-	};
-	// this will display main option
-	public void displayMainOps() {
-		for(String opt: mainOps) {
-			System.out.println(opt);
-		}
-	}
 	
 	// this will list all fill present in specified directory
 	public void listFiles() {
 		System.out.println("\nList of Files:");
 		String []fileList = file.list();
+		Arrays.sort(fileList);
 		if (fileList.length ==0) {
 			System.out.println("directory is empty!");
 		} else {
 			
 			for(int i=0; i<fileList.length; i++) {
-				System.out.println(fileList[i]);
+				System.out.println(" "+fileList[i]);
 			}
 		}
 		
@@ -55,9 +45,9 @@ public class FileManager {
 		fl = new File(file.getPath() + "/" +fileName);
 		try {
 			if(fl.createNewFile()) {
-				System.out.println("file created!");
+				System.out.println("\nfile created!\n");
 			} else {
-				System.out.println("there is already a file with same name");
+				System.out.println("\nthere is already a file with same name\n");
 			}
 		} catch (IOException e) {
 			
@@ -69,15 +59,15 @@ public class FileManager {
 	public void deleteFile() {
 		File fl;
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Enter file name: ");
+		System.out.println("Enter file to delete: ");
 		String fileName = sc.nextLine();
 		fl = new File(file.getPath() + "/" + fileName);
 		if(fl.exists()) {
 			if(fl.delete()) {
-				System.out.println("file is deleted!");
+				System.out.println("\nfile is deleted!\n");
 			}
 		} else {
-			System.out.println("file not found!");
+			System.out.println("\nfile not found!\n");
 		}
 	}
 	
@@ -89,7 +79,9 @@ public class FileManager {
 		String fileName = sc.nextLine();
 		fl = new File(file.getPath() + "/" + fileName);
 		if(fl.exists()) {
-			System.out.println(fl.getName()+" is present!");
+			System.out.println("\n" + fl.getName()+" is present!\n");
+		} else {
+			System.out.println("\nfile not found!\n");
 		}
 		
 	}
